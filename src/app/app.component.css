@@ -1,0 +1,110 @@
+:host {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+:host div {
+    background-color: white;
+    padding: 50px;
+    min-width: 300px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+:host div h1 {
+    animation: wiggle 0.25s 2;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: -5px;
+}
+
+:host div ul {
+    list-style: none;
+    padding: 0;
+}
+
+:host div ul li {
+    position: relative;
+    padding: 15px 10px;
+    cursor: pointer;
+}
+
+:host div ul li:not(:last-child) {
+    border-bottom: 2px solid rgba(211, 211, 211, 0.534);
+    border-radius: 2px;
+}
+
+:host div ul li span {
+    position: relative;
+    user-select: none;
+    transition: opacity 0.5s;
+}
+
+:host div ul li span:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: calc( 100% + .5em);
+    left: -.25em;
+    height: 2px;
+    top: 50%;
+    border-radius: 1px;
+    background: #2E2E2E;
+    transform: scaleX(0);
+    transition: transform 0.5s;
+    transform-origin: center right;
+}
+
+:host div ul li:after {
+    font-family: FontAwesome;
+    content: "\f00c";
+    position: absolute;
+    right: .75rem;
+    color: #2ecc71;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+:host div ul li.complete span {
+    opacity: 0.5;
+}
+
+:host div ul li.complete span:after {
+    transform-origin: center left;
+    transform: scaleX(1);
+}
+
+:host div ul li.complete:after {
+    opacity: 1;
+}
+
+:host div input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(211, 211, 211, 0.534);
+    border-radius: 3px;
+    background-color: rgba(211, 211, 211, 0.534);
+    transition: background-color 0.5s;
+    box-sizing: content-box;
+}
+
+:host div input:focus {
+    background-color: white;
+    outline: none;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(2deg);
+    }
+    50% {
+        transform: rotate(-2deg);
+    }
+    100% {
+        transform: rotate(2deg);
+    }
+}

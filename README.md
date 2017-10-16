@@ -2,6 +2,7 @@
 
 Ce projet est une implémentation simple du rendu coté serveur avec [express](https://github.com/expressjs/express) sur Node.Js.
 L'application en elle même est une todo list.
+
 ![todo-list](https://i.imgur.com/2uA4ywp.png)
 
 ## Build du projet

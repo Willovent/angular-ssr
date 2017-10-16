@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
   constructor(private todoService: TodoService, private replayer: EventReplayer) { }
 
   ngOnInit() {
-    console.log(this.todos);
     this.todoService.getTodos().subscribe(todos => {
       this.todos = todos;
       setTimeout(() => this.replayer.replayAll());

@@ -1,6 +1,7 @@
 import { TodoService } from './services/todo.service';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from './models/todo';
+import { EventReplayer } from 'preboot/browser';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,13 @@ export class AppComponent implements OnInit {
   public todos: Todo[] = [];
   public newTodo: string;
 
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService, private replayer: EventReplayer) { }
 
   ngOnInit() {
     console.log(this.todos);
     this.todoService.getTodos().subscribe(todos => {
       this.todos = todos;
+      setTimeout(() => this.replayer.replayAll());
     });
   }
 

@@ -1,4 +1,6 @@
+import { TodoService } from './services/todo.service';
 import { Component, OnInit } from '@angular/core';
+import { Todo } from './models/todo';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +11,13 @@ export class AppComponent implements OnInit {
   public todos: Todo[] = [];
   public newTodo: string;
 
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
-    this.todos.push({ name: 'Faire une super présentation', check: false });
-    this.todos.push({ name: 'Comparer avec et sans SSR', check: false });
-    this.todos.push({ name: 'Montrer le code du rendu serveur', check: false });
-    this.todos.push({ name: 'Montrer préboot', check: false });
+    console.log(this.todos);
+    this.todoService.getTodos().subscribe(todos => {
+      this.todos = todos;
+    });
   }
 
   addTodo() {
@@ -24,7 +27,4 @@ export class AppComponent implements OnInit {
 
 }
 
-export interface Todo {
-  name: string;
-  check: boolean;
-}
+

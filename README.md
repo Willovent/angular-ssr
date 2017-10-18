@@ -1,27 +1,35 @@
-# AngularSsr
+# Angular Server Side Rendering (SSR)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.7.
+Ce projet est une implémentation simple du rendu coté serveur d'une application [Angular](https://github.com/angular/angular) avec [express](https://github.com/expressjs/express) sur Node.Js.
+L'application en elle même est une todo list.
 
-## Development server
+![todo-list](https://i.imgur.com/2uA4ywp.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Build du projet
 
-## Code scaffolding
+La CLI Angular n'a pas été éjectée afin de pourvoir continuer à utiliser des générateurs (`ng g c monComposant` par exemple). 
+La build de ce projet s'effectue donc en 2 étapes :
+ 1. `ng build -prod`
+ 2. `webpack --config="webpack.server.config.ts"`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Pour lancer le serveur, il suffit ensuite de se placer dans le répertoire `dist` et d'y lancer la commande `node ./main.server.js`
 
-## Build
+## Les branches 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Ce projet comporte plusieurs branches permettant de comparer les différents cas de figure du rendu coté serveur.
 
-## Running unit tests
+### master
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Sur la branche master se trouve l'exemple le plus simple de rendu coté serveur. Les données sont récupérer de manière synchrone de l'application.
 
-## Running end-to-end tests
+### master-async
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Sur cette branche les données sont récupérées de manière asynchrone. Lorsque le navigateur reprend la main sur le DOM générer par le serveur, on peut observé un effet de clignotement dû la mise à jour de ces données.
 
-## Further help
+### preboot
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Sur cette branche, [Preboot.js](https://github.com/angular/preboot) est ajouté et la récupération des données synchrone. Preboot permet de sauvegarder les événements les effectués entre le moment ou la page est rendue et le moment ou elle est interactive. Une fois la page interactive les événement sous rejoués.
+
+### preboot-async
+
+Sur cette branche, Preboot.js est ajouté et la récupération des données asynchrone. Ici, plus de clignotement comme dans master-async. En revanche on obliger d'effectuer le replay des événements manuellement. Si on laisse le replay automatique, Preboot va essayer de rejouer des évenements sur des éléments DOM qui n'existe plus.
